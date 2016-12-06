@@ -16,3 +16,7 @@ TS custom scrolling solution
 * click on the track
 * scroll with wheel
 * scroll with keyboard: cursors up/down; page up/down; home/end
+
+//TODO: 
+- comment the source files
+- document the API
