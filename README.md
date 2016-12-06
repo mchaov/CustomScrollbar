@@ -13,9 +13,9 @@ TS custom scrolling solution
 
 #### Events support
 * drag the scrollbar
-* clikc on the track
+* click on the track
 * scroll with wheel
 * scroll with keyboard:
-..* cursors up/down
-..* page up/down
-..* home/end
+** cursors up/down
+** page up/down
+** home/end
