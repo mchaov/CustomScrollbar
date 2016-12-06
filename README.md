@@ -1,2 +1,2 @@
-# SuperScroll
+# CustomScrollbar
 TS custom scrolling solution
