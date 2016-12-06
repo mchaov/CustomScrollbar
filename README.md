@@ -15,7 +15,4 @@ TS custom scrolling solution
 * drag the scrollbar
 * click on the track
 * scroll with wheel
-* scroll with keyboard:
-** cursors up/down
-** page up/down
-** home/end
+* scroll with keyboard: cursors up/down; page up/down; home/end
