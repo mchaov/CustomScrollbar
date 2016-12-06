@@ -1,0 +1,7 @@
+[
+  {
+    "outputFile": "src/css/customScrollbar.css",
+    "inputFile": "less/app.less",
+    "sourceMap": false
+  }
+]

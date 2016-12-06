@@ -1,0 +1,145 @@
+﻿/*
+    Pseudo states for the elements
+:horizontal
+:vertical
+:decrement
+:increment
+:start
+:end
+:double-button
+:single-button
+:no-button
+:corner-present
+:window-inactive
+
+https://cdn.css-tricks.com/wp-content/uploads/2011/05/scrollbarparts.png
+
+WEBKIT
+::-webkit-scrollbar              {  }
+::-webkit-scrollbar-button       {  }
+::-webkit-scrollbar-track        {  }
+::-webkit-scrollbar-track-piece  {  }
+::-webkit-scrollbar-thumb        {  }
+::-webkit-scrollbar-corner       {  }
+::-webkit-resizer                {  }
+
+::-webkit-scrollbar
+{
+    width: 8px;
+    background: red;
+}
+::-webkit-scrollbar-button
+{
+    background: green;
+}
+::-webkit-scrollbar-track
+{
+}
+::-webkit-scrollbar-track-piece
+{
+}
+::-webkit-scrollbar-thumb
+{
+    background: orange;
+}
+::-webkit-scrollbar-corner
+{
+}
+::-webkit-resizer
+{
+}
+*/
+
+@duration:  80ms;
+@timing:    ease; //cubic-bezier(0.645, 0.045, 0.355, 1);
+
+.scrollable
+{
+    overflow: hidden;
+    position: relative;
+    padding-right: 12px;
+}
+    .is-scrolling *
+    {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+
+        &:after
+        {
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            content: "";
+            display: block;
+            background: none;
+            position: absolute;
+        }
+    }
+
+    .scrollable-wrapper
+    {
+        will-change: translate;
+        transform: translate(0, 0);
+    }
+
+.scrollbar
+{
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 12px;
+    height: 100%;
+    position: absolute;
+}
+:focus
+{
+    outline: 0px solid transparent;
+}
+
+    .scrollbar-track
+    {
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        display: none;
+        position: relative;
+
+        background: yellow;
+    }
+        .scrollbar-thumb
+        {
+            width: 100%;
+            height: auto;
+
+            background: orange;
+
+            position: relative;
+            will-change: translate;
+            transform: translate(0, 0);
+        }
+
+        .is-clicked-scroll
+        {
+            .scrollable-wrapper,
+            .scrollbar-thumb
+            {
+                transition-delay: 0;
+                transition-duration: @duration;
+                transition-property: transform;
+                transition-timing-function: @timing;
+            }
+        }
+
+        .is-scrolling-enabled
+        {
+            .scrollbar-track
+            {
+                display: block;
+            }
+        }

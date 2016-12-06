@@ -1,0 +1,7 @@
+﻿{
+  "version": "2.3.0",
+  "ignore": [
+    "\\src\\js\\customScrollbar.js"
+  ],
+  "globalVariables": []
+}

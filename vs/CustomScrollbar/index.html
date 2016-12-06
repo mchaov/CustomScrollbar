@@ -1,0 +1,235 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Custom Scrollbars</title>
+    <link rel="stylesheet" href="src/css/customScrollbar.css" type="text/css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-shim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.34.2/es6-shim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.34.2/es6-sham.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/2014.01.31/classList.min.js"></script>
+
+    <script>
+(function() {
+    var lastTime = 0;
+    var vendors = ['ms', 'moz', 'webkit', 'o'];
+    for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+        window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
+        window.cancelAnimationFrame = window[vendors[x]+'CancelAnimationFrame']
+                                   || window[vendors[x]+'CancelRequestAnimationFrame'];
+    }
+
+    if (!window.requestAnimationFrame)
+        window.requestAnimationFrame = function(callback, element) {
+            var currTime = new Date().getTime();
+            var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+            var id = window.setTimeout(function() { callback(currTime + timeToCall); },
+              timeToCall);
+            lastTime = currTime + timeToCall;
+            return id;
+        };
+
+    if (!window.cancelAnimationFrame)
+        window.cancelAnimationFrame = function(id) {
+            clearTimeout(id);
+        };
+}());
+    </script>
+
+    <script src="src/js/customScrollbar.js" defer></script>
+</head>
+<body>
+    <h1>Custom Scrollbars</h1>
+    <br /><br /><br />
+    <div>
+        <table>
+            <tr>
+                <th>Simple scroller</th>
+                <th>Some DOM updates</th>
+                <th>Not enough content to scroll <br /> srink the page to make it so</th>
+                <th>Fast updates of content</th>
+            </tr>
+            <tr>
+                <td>
+                    <div id="content" class="scrollable" tabindex="1">
+                        <div class="scrollable-wrapper">
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at est lacinia, pharetra eros ac, eleifend arcu. Donec dapibus tincidunt augue, quis cursus dolor consequat eget. Vestibulum in quam elit. Ut fringilla tempus sapien et sollicitudin. Duis vitae ultricies mauris, ut porttitor mauris. Aliquam cursus lectus justo. Pellentesque in leo elit. Praesent nulla nisi, blandit vel purus nec, ultricies mattis diam.
+                            </p>
+                            <p>
+                                Sed molestie dictum leo non tincidunt. Phasellus feugiat, tortor a sollicitudin ultrices, ex ligula fermentum odio, et pellentesque nisi massa ac ante. Vivamus feugiat, lacus ac ullamcorper vehicula, arcu lorem aliquet enim, a congue mi dolor non dolor. Fusce vestibulum nunc a justo vestibulum, vel cursus sapien elementum. Vivamus fermentum malesuada lorem. Sed scelerisque augue diam, eu tincidunt sapien scelerisque eget. Mauris eget placerat diam, in commodo justo.
+                            </p>
+                            <p>
+                                Pellentesque eu nibh sit amet arcu placerat congue a sed nisl. Integer fermentum egestas nulla eget blandit. Sed vel vulputate massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam venenatis urna enim, at placerat sapien interdum id. Quisque in metus nunc. In a metus commodo, convallis justo id, laoreet justo. Etiam sagittis tincidunt erat eget pulvinar. Cras hendrerit bibendum condimentum. Integer imperdiet dignissim lectus, venenatis efficitur mi dictum quis. Sed gravida est enim, eget interdum nunc dignissim a. Praesent consequat mattis magna ac tempus. Sed magna dui, pellentesque non magna sed, consectetur ullamcorper ipsum.
+                            </p>
+                            <p>
+                                Integer ornare sodales velit, sit amet consectetur nibh consequat quis. Nulla facilisi. Nunc tincidunt mollis ultrices. Vestibulum et tortor pulvinar, molestie orci eu, congue ex. Sed dictum diam mauris, a maximus erat fringilla sit amet. Curabitur vitae magna vitae tortor pulvinar dignissim. Sed gravida quis libero non porta. Etiam eget augue finibus, malesuada ex vel, pulvinar eros. Phasellus libero odio, commodo sagittis rhoncus in, sagittis ut lectus. Etiam blandit urna nisl, id sollicitudin massa finibus et. Vivamus luctus pellentesque urna, nec pellentesque eros faucibus tempus. Nam ex arcu, ullamcorper at posuere ut, ornare et libero. Sed ultricies tellus sed congue blandit. Proin rutrum porttitor arcu, non consequat nulla accumsan et. Nulla congue libero sed sapien ultricies, id semper justo placerat. Aenean eget neque a dui tristique volutpat sit amet ut urna.
+                            </p>
+                            <p>
+                                Etiam suscipit vel ex ac porttitor. Pellentesque tristique bibendum fringilla. Fusce arcu eros, posuere et est vel, dapibus dignissim nisi. Fusce ullamcorper, nisl in scelerisque vehicula, lorem enim tincidunt eros, posuere euismod neque libero eu lorem. Vestibulum convallis augue vitae sapien varius, et pretium lacus consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel orci libero. Nunc bibendum varius dui, congue molestie massa blandit sed. Nunc non aliquam quam. Sed vitae velit vitae enim finibus lacinia in sed enim. Phasellus id condimentum diam, quis eleifend risus. Sed tincidunt ultrices purus sed consequat. In velit neque, lacinia sit amet ipsum rutrum, gravida tincidunt dui. Integer a sem dolor.
+                            </p>
+                            <p>
+                                Aliquam commodo purus ut tincidunt sodales. Quisque vulputate, ante id fringilla rhoncus, urna massa sodales purus, sed venenatis tellus purus id justo. Nam ligula ipsum, viverra in orci sed, aliquam sodales ex. Quisque tristique placerat massa, in consequat justo dapibus vel. Etiam sit amet eleifend nisi. Vivamus feugiat tincidunt urna. Phasellus non nulla maximus, elementum massa eu, tempus tellus. Aliquam ut mi vitae lacus laoreet finibus euismod sed metus. Mauris euismod turpis molestie ligula sodales porttitor. Curabitur ac semper ligula, quis condimentum nulla. Vestibulum congue ligula a ante lacinia suscipit.
+                            </p>
+                            <p>
+                                Donec venenatis eu lectus id dignissim. Vivamus eu venenatis quam. In hac habitasse platea dictumst. Aliquam erat volutpat. Phasellus et maximus augue, et ultrices magna. Nulla dignissim eleifend rutrum. Nunc est orci, malesuada id feugiat ac, viverra vitae justo. Fusce facilisis purus euismod, fermentum orci id, malesuada ligula. Aliquam massa tellus, scelerisque a arcu vel, sollicitudin vehicula nisi. Donec feugiat quam eu felis viverra consectetur. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nam a mattis nunc, non lacinia ipsum.
+                            </p>
+                            <p>
+                                Donec pharetra rhoncus velit, vitae consectetur nulla rutrum sed. Fusce purus ante, facilisis eu lobortis non, pulvinar a eros. In fringilla, urna ac efficitur accumsan, nunc tortor feugiat mauris, et gravida augue urna et orci. Suspendisse potenti. Mauris euismod ex ac magna ullamcorper dignissim. Sed molestie, erat in mattis eleifend, nulla orci finibus velit, eu imperdiet lectus ipsum eu lacus. Curabitur sem quam, laoreet a odio id, placerat molestie diam. Proin orci risus, hendrerit ac imperdiet vel, lobortis non diam. Nam pharetra in quam non dignissim.
+                            </p>
+                            <p>
+                                Sed eget felis ut lorem blandit posuere commodo in enim. In hac habitasse platea dictumst. Nulla eget orci et ligula porttitor ullamcorper nec ac magna. Nam laoreet, nisl vitae vulputate aliquam, tortor massa venenatis lacus, quis maximus nisl nisi sit amet sem. Sed ultricies tellus et tempus posuere. Morbi dapibus nisl vitae orci interdum euismod eu et est. Maecenas egestas orci ut tellus vestibulum, non ultricies libero dignissim. Sed viverra, lorem eu consequat vehicula, tortor ipsum tempor ipsum, vel rutrum enim nisi accumsan odio.
+                            </p>
+                            <p>
+                                Aliquam vitae libero dolor. Donec imperdiet quis odio in imperdiet. Nunc scelerisque porttitor eleifend. Integer porttitor lobortis lectus quis ullamcorper. Aenean in metus aliquam, bibendum lectus sed, facilisis sapien. Duis eu imperdiet massa. Nulla auctor a erat nec lacinia.
+                            </p>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id="content4" class="scrollable" tabindex="1">
+                        <div id="wrp2" class="scrollable-wrapper">
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at est lacinia, pharetra eros ac, eleifend arcu. Donec dapibus tincidunt augue, quis cursus dolor consequat eget. Vestibulum in quam elit. Ut fringilla tempus sapien et sollicitudin. Duis vitae ultricies mauris, ut porttitor mauris. Aliquam cursus lectus justo. Pellentesque in leo elit. Praesent nulla nisi, blandit vel purus nec, ultricies mattis diam.
+                            </p>
+                            <p>
+                                Sed molestie dictum leo non tincidunt. Phasellus feugiat, tortor a sollicitudin ultrices, ex ligula fermentum odio, et pellentesque nisi massa ac ante. Vivamus feugiat, lacus ac ullamcorper vehicula, arcu lorem aliquet enim, a congue mi dolor non dolor. Fusce vestibulum nunc a justo vestibulum, vel cursus sapien elementum. Vivamus fermentum malesuada lorem. Sed scelerisque augue diam, eu tincidunt sapien scelerisque eget. Mauris eget placerat diam, in commodo justo.
+                            </p>
+                            <p>
+                                Pellentesque eu nibh sit amet arcu placerat congue a sed nisl. Integer fermentum egestas nulla eget blandit. Sed vel vulputate massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam venenatis urna enim, at placerat sapien interdum id. Quisque in metus nunc. In a metus commodo, convallis justo id, laoreet justo. Etiam sagittis tincidunt erat eget pulvinar. Cras hendrerit bibendum condimentum. Integer imperdiet dignissim lectus, venenatis efficitur mi dictum quis. Sed gravida est enim, eget interdum nunc dignissim a. Praesent consequat mattis magna ac tempus. Sed magna dui, pellentesque non magna sed, consectetur ullamcorper ipsum.
+                            </p>
+                            <p>
+                                Integer ornare sodales velit, sit amet consectetur nibh consequat quis. Nulla facilisi. Nunc tincidunt mollis ultrices. Vestibulum et tortor pulvinar, molestie orci eu, congue ex. Sed dictum diam mauris, a maximus erat fringilla sit amet. Curabitur vitae magna vitae tortor pulvinar dignissim. Sed gravida quis libero non porta. Etiam eget augue finibus, malesuada ex vel, pulvinar eros. Phasellus libero odio, commodo sagittis rhoncus in, sagittis ut lectus. Etiam blandit urna nisl, id sollicitudin massa finibus et. Vivamus luctus pellentesque urna, nec pellentesque eros faucibus tempus. Nam ex arcu, ullamcorper at posuere ut, ornare et libero. Sed ultricies tellus sed congue blandit. Proin rutrum porttitor arcu, non consequat nulla accumsan et. Nulla congue libero sed sapien ultricies, id semper justo placerat. Aenean eget neque a dui tristique volutpat sit amet ut urna.
+                            </p>
+                            <p>
+                                Etiam suscipit vel ex ac porttitor. Pellentesque tristique bibendum fringilla. Fusce arcu eros, posuere et est vel, dapibus dignissim nisi. Fusce ullamcorper, nisl in scelerisque vehicula, lorem enim tincidunt eros, posuere euismod neque libero eu lorem. Vestibulum convallis augue vitae sapien varius, et pretium lacus consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel orci libero. Nunc bibendum varius dui, congue molestie massa blandit sed. Nunc non aliquam quam. Sed vitae velit vitae enim finibus lacinia in sed enim. Phasellus id condimentum diam, quis eleifend risus. Sed tincidunt ultrices purus sed consequat. In velit neque, lacinia sit amet ipsum rutrum, gravida tincidunt dui. Integer a sem dolor.
+                            </p>
+                            <p>
+                                Aliquam commodo purus ut tincidunt sodales. Quisque vulputate, ante id fringilla rhoncus, urna massa sodales purus, sed venenatis tellus purus id justo. Nam ligula ipsum, viverra in orci sed, aliquam sodales ex. Quisque tristique placerat massa, in consequat justo dapibus vel. Etiam sit amet eleifend nisi. Vivamus feugiat tincidunt urna. Phasellus non nulla maximus, elementum massa eu, tempus tellus. Aliquam ut mi vitae lacus laoreet finibus euismod sed metus. Mauris euismod turpis molestie ligula sodales porttitor. Curabitur ac semper ligula, quis condimentum nulla. Vestibulum congue ligula a ante lacinia suscipit.
+                            </p>
+                            <p>
+                                Donec venenatis eu lectus id dignissim. Vivamus eu venenatis quam. In hac habitasse platea dictumst. Aliquam erat volutpat. Phasellus et maximus augue, et ultrices magna. Nulla dignissim eleifend rutrum. Nunc est orci, malesuada id feugiat ac, viverra vitae justo. Fusce facilisis purus euismod, fermentum orci id, malesuada ligula. Aliquam massa tellus, scelerisque a arcu vel, sollicitudin vehicula nisi. Donec feugiat quam eu felis viverra consectetur. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nam a mattis nunc, non lacinia ipsum.
+                            </p>
+                            <p>
+                                Donec pharetra rhoncus velit, vitae consectetur nulla rutrum sed. Fusce purus ante, facilisis eu lobortis non, pulvinar a eros. In fringilla, urna ac efficitur accumsan, nunc tortor feugiat mauris, et gravida augue urna et orci. Suspendisse potenti. Mauris euismod ex ac magna ullamcorper dignissim. Sed molestie, erat in mattis eleifend, nulla orci finibus velit, eu imperdiet lectus ipsum eu lacus. Curabitur sem quam, laoreet a odio id, placerat molestie diam. Proin orci risus, hendrerit ac imperdiet vel, lobortis non diam. Nam pharetra in quam non dignissim.
+                            </p>
+                            <p>
+                                Sed eget felis ut lorem blandit posuere commodo in enim. In hac habitasse platea dictumst. Nulla eget orci et ligula porttitor ullamcorper nec ac magna. Nam laoreet, nisl vitae vulputate aliquam, tortor massa venenatis lacus, quis maximus nisl nisi sit amet sem. Sed ultricies tellus et tempus posuere. Morbi dapibus nisl vitae orci interdum euismod eu et est. Maecenas egestas orci ut tellus vestibulum, non ultricies libero dignissim. Sed viverra, lorem eu consequat vehicula, tortor ipsum tempor ipsum, vel rutrum enim nisi accumsan odio.
+                            </p>
+                            <p>
+                                Aliquam vitae libero dolor. Donec imperdiet quis odio in imperdiet. Nunc scelerisque porttitor eleifend. Integer porttitor lobortis lectus quis ullamcorper. Aenean in metus aliquam, bibendum lectus sed, facilisis sapien. Duis eu imperdiet massa. Nulla auctor a erat nec lacinia.
+                            </p>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id="content3" class="scrollable" tabindex="1">
+                        <div class="scrollable-wrapper">
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at est lacinia, pharetra eros ac, eleifend arcu. Donec dapibus tincidunt augue, quis cursus dolor consequat eget. Vestibulum in quam elit. Ut fringilla tempus sapien et sollicitudin. Duis vitae ultricies mauris, ut porttitor mauris. Aliquam cursus lectus justo. Pellentesque in leo elit. Praesent nulla nisi, blandit vel purus nec, ultricies mattis diam.
+                            </p>
+                            <p>
+                                Aliquam vitae libero dolor. Donec imperdiet quis odio in imperdiet. Nunc scelerisque porttitor eleifend. Integer porttitor lobortis lectus quis ullamcorper. Aenean in metus aliquam, bibendum lectus sed, facilisis sapien. Duis eu imperdiet massa. Nulla auctor a erat nec lacinia.
+                            </p>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at est lacinia, pharetra eros ac, eleifend arcu. Donec dapibus tincidunt augue, quis cursus dolor consequat eget. Vestibulum in quam elit. Ut fringilla tempus sapien et sollicitudin. Duis vitae ultricies mauris, ut porttitor mauris. Aliquam cursus lectus justo. Pellentesque in leo elit. Praesent nulla nisi, blandit vel purus nec, ultricies mattis diam.
+                            </p>
+                            <p>
+                                Aliquam vitae libero dolor. Donec imperdiet quis odio in imperdiet. Nunc scelerisque porttitor eleifend. Integer porttitor lobortis lectus quis ullamcorper. Aenean in metus aliquam, bibendum lectus sed, facilisis sapien. Duis eu imperdiet massa. Nulla auctor a erat nec lacinia.
+                            </p>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id="content2" class="scrollable" tabindex="1">
+                        <div id="wrp" class="scrollable-wrapper">
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at est lacinia, pharetra eros ac, eleifend arcu. Donec dapibus tincidunt augue, quis cursus dolor consequat eget. Vestibulum in quam elit. Ut fringilla tempus sapien et sollicitudin. Duis vitae ultricies mauris, ut porttitor mauris. Aliquam cursus lectus justo. Pellentesque in leo elit. Praesent nulla nisi, blandit vel purus nec, ultricies mattis diam.
+                            </p>
+                            <p>
+                                Sed molestie dictum leo non tincidunt. Phasellus feugiat, tortor a sollicitudin ultrices, ex ligula fermentum odio, et pellentesque nisi massa ac ante. Vivamus feugiat, lacus ac ullamcorper vehicula, arcu lorem aliquet enim, a congue mi dolor non dolor. Fusce vestibulum nunc a justo vestibulum, vel cursus sapien elementum. Vivamus fermentum malesuada lorem. Sed scelerisque augue diam, eu tincidunt sapien scelerisque eget. Mauris eget placerat diam, in commodo justo.
+                            </p>
+                            <p>
+                                Pellentesque eu nibh sit amet arcu placerat congue a sed nisl. Integer fermentum egestas nulla eget blandit. Sed vel vulputate massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam venenatis urna enim, at placerat sapien interdum id. Quisque in metus nunc. In a metus commodo, convallis justo id, laoreet justo. Etiam sagittis tincidunt erat eget pulvinar. Cras hendrerit bibendum condimentum. Integer imperdiet dignissim lectus, venenatis efficitur mi dictum quis. Sed gravida est enim, eget interdum nunc dignissim a. Praesent consequat mattis magna ac tempus. Sed magna dui, pellentesque non magna sed, consectetur ullamcorper ipsum.
+                            </p>
+                            <p>
+                                Integer ornare sodales velit, sit amet consectetur nibh consequat quis. Nulla facilisi. Nunc tincidunt mollis ultrices. Vestibulum et tortor pulvinar, molestie orci eu, congue ex. Sed dictum diam mauris, a maximus erat fringilla sit amet. Curabitur vitae magna vitae tortor pulvinar dignissim. Sed gravida quis libero non porta. Etiam eget augue finibus, malesuada ex vel, pulvinar eros. Phasellus libero odio, commodo sagittis rhoncus in, sagittis ut lectus. Etiam blandit urna nisl, id sollicitudin massa finibus et. Vivamus luctus pellentesque urna, nec pellentesque eros faucibus tempus. Nam ex arcu, ullamcorper at posuere ut, ornare et libero. Sed ultricies tellus sed congue blandit. Proin rutrum porttitor arcu, non consequat nulla accumsan et. Nulla congue libero sed sapien ultricies, id semper justo placerat. Aenean eget neque a dui tristique volutpat sit amet ut urna.
+                            </p>
+                            <p>
+                                Etiam suscipit vel ex ac porttitor. Pellentesque tristique bibendum fringilla. Fusce arcu eros, posuere et est vel, dapibus dignissim nisi. Fusce ullamcorper, nisl in scelerisque vehicula, lorem enim tincidunt eros, posuere euismod neque libero eu lorem. Vestibulum convallis augue vitae sapien varius, et pretium lacus consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel orci libero. Nunc bibendum varius dui, congue molestie massa blandit sed. Nunc non aliquam quam. Sed vitae velit vitae enim finibus lacinia in sed enim. Phasellus id condimentum diam, quis eleifend risus. Sed tincidunt ultrices purus sed consequat. In velit neque, lacinia sit amet ipsum rutrum, gravida tincidunt dui. Integer a sem dolor.
+                            </p>
+                            <br /><br />
+                            <p id="testElement">
+                                <strong>Aliquam commodo purus ut tincidunt sodales.</strong> Quisque vulputate, ante id fringilla rhoncus, urna massa sodales purus, sed venenatis tellus purus id justo. Nam ligula ipsum, viverra in orci sed, aliquam sodales ex. Quisque tristique placerat massa, in consequat justo dapibus vel. Etiam sit amet eleifend nisi. Vivamus feugiat tincidunt urna. Phasellus non nulla maximus, elementum massa eu, tempus tellus. Aliquam ut mi vitae lacus laoreet finibus euismod sed metus. Mauris euismod turpis molestie ligula sodales porttitor. Curabitur ac semper ligula, quis condimentum nulla. Vestibulum congue ligula a ante lacinia suscipit.
+                            </p>
+                            <p>
+                                Donec venenatis eu lectus id dignissim. Vivamus eu venenatis quam. In hac habitasse platea dictumst. Aliquam erat volutpat. Phasellus et maximus augue, et ultrices magna. Nulla dignissim eleifend rutrum. Nunc est orci, malesuada id feugiat ac, viverra vitae justo. Fusce facilisis purus euismod, fermentum orci id, malesuada ligula. Aliquam massa tellus, scelerisque a arcu vel, sollicitudin vehicula nisi. Donec feugiat quam eu felis viverra consectetur. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nam a mattis nunc, non lacinia ipsum.
+                            </p>
+                            <p>
+                                Donec pharetra rhoncus velit, vitae consectetur nulla rutrum sed. Fusce purus ante, facilisis eu lobortis non, pulvinar a eros. In fringilla, urna ac efficitur accumsan, nunc tortor feugiat mauris, et gravida augue urna et orci. Suspendisse potenti. Mauris euismod ex ac magna ullamcorper dignissim. Sed molestie, erat in mattis eleifend, nulla orci finibus velit, eu imperdiet lectus ipsum eu lacus. Curabitur sem quam, laoreet a odio id, placerat molestie diam. Proin orci risus, hendrerit ac imperdiet vel, lobortis non diam. Nam pharetra in quam non dignissim.
+                            </p>
+                            <p>
+                                Sed eget felis ut lorem blandit posuere commodo in enim. In hac habitasse platea dictumst. Nulla eget orci et ligula porttitor ullamcorper nec ac magna. Nam laoreet, nisl vitae vulputate aliquam, tortor massa venenatis lacus, quis maximus nisl nisi sit amet sem. Sed ultricies tellus et tempus posuere. Morbi dapibus nisl vitae orci interdum euismod eu et est. Maecenas egestas orci ut tellus vestibulum, non ultricies libero dignissim. Sed viverra, lorem eu consequat vehicula, tortor ipsum tempor ipsum, vel rutrum enim nisi accumsan odio.
+                            </p>
+                            <p>
+                                Aliquam vitae libero dolor. Donec imperdiet quis odio in imperdiet. Nunc scelerisque porttitor eleifend. Integer porttitor lobortis lectus quis ullamcorper. Aenean in metus aliquam, bibendum lectus sed, facilisis sapien. Duis eu imperdiet massa. Nulla auctor a erat nec lacinia.
+                            </p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script>
+        var sc;
+        var sc2;
+        var sc3;
+        var sc4;
+        var int;
+        var int2;
+
+        function testContent(){
+            var time;
+                t = "";
+
+            var l = parseInt(Math.random() * (40 - 10) + 10);
+
+            for(var i = 0; i < l; i++){
+                t += " <p> <b>" + performance.now().toString(16) + "</b><br/> Donec venenatis eu lectus id dignissim. Vivamus eu venenatis quam. In hac habitasse platea dictumst. Aliquam erat volutpat. Phasellus et maximus augue, et ultrices magna. Nulla dignissim eleifend rutrum. Nunc est orci, malesuada id feugiat ac, viverra vitae justo. Fusce facilisis purus euismod, fermentum orci id, malesuada ligula. Aliquam massa tellus, scelerisque a arcu vel, sollicitudin vehicula nisi. Donec feugiat quam eu felis viverra consectetur. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nam a mattis nunc, non lacinia ipsum. </p> ";
+            }
+            document.getElementById('wrp').innerHTML = t;
+        }
+
+
+        function testContent2(){
+            var time;
+                t = "";
+
+            var l = 20;
+
+            for(var i = 0; i < l; i++){
+                t += " <p> <b>" + performance.now().toString(16) + "</b><br/> Donec venenatis eu lectus id dignissim. Vivamus eu venenatis quam. In hac habitasse platea dictumst. Aliquam erat volutpat. Phasellus et maximus augue, et ultrices magna. Nulla dignissim eleifend rutrum. Nunc est orci, malesuada id feugiat ac, viverra vitae justo. Fusce facilisis purus euismod, fermentum orci id, malesuada ligula. Aliquam massa tellus, scelerisque a arcu vel, sollicitudin vehicula nisi. Donec feugiat quam eu felis viverra consectetur. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nam a mattis nunc, non lacinia ipsum. </p> ";
+            }
+            document.getElementById('wrp2').innerHTML = t;
+        }
+
+        function domLoaded( e ){
+            "use strict";
+            sc = new CustomScrollbar( document.getElementById( "content" ) );
+
+            sc2 = new CustomScrollbar( document.getElementById( "content2" ), true );
+
+            sc3 = new CustomScrollbar( document.getElementById( "content3" ) );
+
+            sc4 = new CustomScrollbar( document.getElementById( "content4" ) );
+
+            // int = setInterval(testContent, 10);
+            // int2 = setInterval(testContent2, 10);
+        }
+
+        document.addEventListener( "DOMContentLoaded", domLoaded );
+    </script>
+</body>
+</html>
