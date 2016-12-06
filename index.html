@@ -47,9 +47,9 @@
         <table>
             <tr>
                 <th>Simple scroller</th>
-                <th>Some DOM updates</th>
+                <th>Some DOM updates (no height change)</th>
                 <th>Not enough content to scroll <br /> srink the page to make it so</th>
-                <th>Fast updates of content</th>
+                <th>Fast updates of content (+ height change)</th>
             </tr>
             <tr>
                 <td>
@@ -225,8 +225,8 @@
 
             sc4 = new CustomScrollbar( document.getElementById( "content4" ) );
 
-            // int = setInterval(testContent, 10);
-            // int2 = setInterval(testContent2, 10);
+            int = setInterval(testContent, 1000);
+            int2 = setInterval(testContent2, 350);
         }
 
         document.addEventListener( "DOMContentLoaded", domLoaded );
