@@ -59,14 +59,17 @@ WEBKIT
     position: relative;
     padding-right: 12px;
 }
-    .is-scrolling *
+    .is-scrolling
     {
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
+        & *
+        {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
 
-        &:after
+        & .scrollable-wrapper:after
         {
             top: 0;
             left: 0;

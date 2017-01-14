@@ -100,7 +100,7 @@ WEBKIT
   -ms-user-select: none;
   user-select: none;
 }
-.is-scrolling *:after {
+.is-scrolling .scrollable-wrapper:after {
   top: 0;
   left: 0;
   right: 0;
