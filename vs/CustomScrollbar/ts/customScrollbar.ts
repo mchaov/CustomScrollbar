@@ -569,7 +569,6 @@ class CustomScrollbar {
                 && typeof t.scrollTop === "number" ? t : document.body ).scrollTop;
 
             let d: number = this.html.parent.offsetTop - t;
-            let k: string = "c" + e.clientY + "t" + d;
             this.inBound = !(
                 d > e.clientY || d + this.scroll.parent.height < e.clientY
             );

@@ -405,7 +405,6 @@ var CustomScrollbar = (function () {
             t = (((t = document.documentElement) || (t = document.body.parentNode))
                 && typeof t.scrollTop === "number" ? t : document.body).scrollTop;
             var d = this.html.parent.offsetTop - t;
-            var k = "c" + e.clientY + "t" + d;
             this.inBound = !(d > e.clientY || d + this.scroll.parent.height < e.clientY);
         }
         return null;
