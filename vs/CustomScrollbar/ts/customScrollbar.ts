@@ -570,12 +570,9 @@ class CustomScrollbar {
 
             let d: number = this.html.parent.offsetTop - t;
             let k: string = "c" + e.clientY + "t" + d;
-            if ( !this.cache.moveDelta[k] ) {
-                this.cache.moveDelta[k] = !(
-                    d > e.clientY || d + this.scroll.parent.height < e.clientY
-                );
-            }
-            this.inBound = this.cache.moveDelta[k];
+            this.inBound = !(
+                d > e.clientY || d + this.scroll.parent.height < e.clientY
+            );
         }
         return null;
     }

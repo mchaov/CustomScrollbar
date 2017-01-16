@@ -87,8 +87,9 @@
     <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
     <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
     <TypeScriptModuleKind>None</TypeScriptModuleKind>
-    <TypeScriptOutFile>D:\xampp\htdocs\StaticPages\CustomScrollbar\CustomScrollbar\CustomScrollbar\src\js\customScrollbar.js</TypeScriptOutFile>
-    <TypeScriptOutDir>D:\xampp\htdocs\StaticPages\CustomScrollbar\CustomScrollbar\CustomScrollbar\src\js</TypeScriptOutDir>
+    <TypeScriptOutFile>
+    </TypeScriptOutFile>
+    <TypeScriptOutDir>D:\GIT\CustomScrollbar\vs\CustomScrollbar\src\js\</TypeScriptOutDir>
     <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
     <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
     <TypeScriptMapRoot />

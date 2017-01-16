@@ -1,5 +1,5 @@
-var CustomScrollbar = (function () {
 "use strict";
+var CustomScrollbar = (function () {
     function CustomScrollbar(element, observable, template) {
         var _this = this;
         if (observable === void 0) { observable = false; }
@@ -406,10 +406,7 @@ var CustomScrollbar = (function () {
                 && typeof t.scrollTop === "number" ? t : document.body).scrollTop;
             var d = this.html.parent.offsetTop - t;
             var k = "c" + e.clientY + "t" + d;
-            if (!this.cache.moveDelta[k]) {
-                this.cache.moveDelta[k] = !(d > e.clientY || d + this.scroll.parent.height < e.clientY);
-            }
-            this.inBound = this.cache.moveDelta[k];
+            this.inBound = !(d > e.clientY || d + this.scroll.parent.height < e.clientY);
         }
         return null;
     };
