@@ -315,9 +315,10 @@ var CustomScrollbar = (function () {
         if (this.drag && this.inBound) {
             e.stopPropagation();
             e.preventDefault();
-            this.delta.current = (e.clientY - this.delta.initial);
-            this.delta.initial = e.clientY;
-            var t = (this.delta.current / (this.scroll.parent.height - this.scroll.thumb.height)) * this.scroll.parent.height;
+            var c = e.pageY || (e.clientY + document.body.scrollTop + document.documentElement.scrollTop);
+            this.delta.current = (c - this.delta.initial);
+            this.delta.initial = c;
+            var t = (this.delta.current / (this.scroll.parent.height)) * this.scroll.parent.height;
             t = t + ((this.delta.ratio - .5) * (this.delta.current || 1));
             this.setScroll(t, 1);
         }

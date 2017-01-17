@@ -470,12 +470,14 @@ class CustomScrollbar {
             e.stopPropagation();
             e.preventDefault();
 
-            this.delta.current = ( e.clientY - this.delta.initial );
-            this.delta.initial = e.clientY;
+            let c: number = e.pageY || (e.clientY + document.body.scrollTop + document.documentElement.scrollTop);
+
+            this.delta.current = ( c - this.delta.initial );
+            this.delta.initial = c;
 
             let t: number = (
                 this.delta.current / (
-                    this.scroll.parent.height - this.scroll.thumb.height
+                    this.scroll.parent.height
                 )
             ) * this.scroll.parent.height;
 
