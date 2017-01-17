@@ -122,6 +122,7 @@ class CustomScrollbar {
     private cursorStep: number;
     private enabled: boolean;
     private drag: boolean;
+    private passiveEvent: { capture: true, passive: true } | boolean;
 
     constructor(
         element: HTMLElement,
@@ -131,6 +132,18 @@ class CustomScrollbar {
         if ( typeof Object.setPrototypeOf === "function" ) {
             Object.setPrototypeOf( Object.getPrototypeOf( this ), null );
         }
+
+        let passiveEvent = false;
+        try {
+            var opts = Object.defineProperty({}, 'passive', {
+                get: function () {
+                    passiveEvent = true;
+                }
+            });
+            window.addEventListener("test", null, opts);
+        } catch (e) { }
+
+        this.passiveEvent = passiveEvent ? { capture: true, passive: true } : true;
 
         let supportedWheelEvent: string = "onwheel" in HTMLDivElement.prototype ? "wheel" :
             document.onmousewheel !== undefined ? "mousewheel" : "DOMMouseScroll";
@@ -447,10 +460,9 @@ class CustomScrollbar {
             this.cache.wheelDelta[d] = 1 / 2 * d * -1;
         }
         let delta: number = this.cache.wheelDelta[d];
-
         if ( this.enabled && ( delta < 0 && !this.scroll.start || delta > 0 && !this.scroll.end ) ) {
             e.stopPropagation();
-            e.preventDefault();
+            !this.passiveEvent && e.preventDefault();
         }
         this.setScroll( delta, 2 );
         return null;
@@ -464,7 +476,7 @@ class CustomScrollbar {
     private handlerMouseMove( e: MouseEvent ): void {
         if ( this.drag ) {
             e.stopPropagation();
-            e.preventDefault();
+            !this.passiveEvent && e.preventDefault();
 
             let c: number = e.pageY || (e.clientY + document.body.scrollTop + document.documentElement.scrollTop);
 
@@ -486,7 +498,7 @@ class CustomScrollbar {
     private handlerMouseDown( e: MouseEvent ): void {
         if ( e.target === this.html.thumb ) {
             e.stopPropagation();
-            e.preventDefault();
+            !this.passiveEvent && e.preventDefault();
 
             this.delta.initial = e.clientY;
             this.drag = true;
@@ -553,7 +565,7 @@ class CustomScrollbar {
         type += "EventListener";
         for ( let i in this.boundEvents ) {
             for ( let j in this.boundEvents[i] ) {
-                this.boundElements[i][type]( j, this.boundEvents[i][j], true );
+                this.boundElements[i][type](j, this.boundEvents[i][j], this.passiveEvent);
             }
         }
         return this;
