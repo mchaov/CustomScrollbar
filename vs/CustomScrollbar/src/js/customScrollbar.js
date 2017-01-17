@@ -36,7 +36,6 @@ var CustomScrollbar = (function () {
             }], template || {});
         this.domTemplate = document.createDocumentFragment();
         this.drag = false;
-        this.inBound = false;
         this.scroll = Object.create(null, {
             max: { writable: true, value: 0 },
             min: { writable: true, value: 0 },
@@ -305,14 +304,12 @@ var CustomScrollbar = (function () {
     };
     CustomScrollbar.prototype.handlerMouseUp = function (e) {
         this.delta.initial = 0;
-        this.calcBounderies(e);
         this.drag = false;
         this.html.parent.classList.remove(this.classes.scrolling);
         return null;
     };
     CustomScrollbar.prototype.handlerMouseMove = function (e) {
-        this.calcBounderies(e);
-        if (this.drag && this.inBound) {
+        if (this.drag) {
             e.stopPropagation();
             e.preventDefault();
             var c = e.pageY || (e.clientY + document.body.scrollTop + document.documentElement.scrollTop);
@@ -326,7 +323,6 @@ var CustomScrollbar = (function () {
     };
     CustomScrollbar.prototype.handlerMouseDown = function (e) {
         if (e.target === this.html.thumb) {
-            this.calcBounderies(e);
             e.stopPropagation();
             e.preventDefault();
             this.delta.initial = e.clientY;
@@ -399,16 +395,6 @@ var CustomScrollbar = (function () {
             }
         }
         return this;
-    };
-    CustomScrollbar.prototype.calcBounderies = function (e) {
-        if (this.drag) {
-            var t = void 0;
-            t = (((t = document.documentElement) || (t = document.body.parentNode))
-                && typeof t.scrollTop === "number" ? t : document.body).scrollTop;
-            var d = this.html.parent.offsetTop - t;
-            this.inBound = !(d > e.clientY || d + this.scroll.parent.height < e.clientY);
-        }
-        return null;
     };
     CustomScrollbar.prototype.clearProps = function (name) {
         return this.cache[name] = Object.create(null);

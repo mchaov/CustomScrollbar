@@ -120,7 +120,6 @@ class CustomScrollbar {
     private animationFrame: number;
     private movementType: string;
     private cursorStep: number;
-    private inBound: boolean;
     private enabled: boolean;
     private drag: boolean;
 
@@ -168,7 +167,6 @@ class CustomScrollbar {
         this.domTemplate = document.createDocumentFragment();
 
         this.drag = false;
-        this.inBound = false;
 
         this.scroll = Object.create( null, {
             max: { writable: true, value: 0 },
@@ -459,14 +457,12 @@ class CustomScrollbar {
     }
     private handlerMouseUp( e: MouseEvent ): void {
         this.delta.initial = 0;
-        this.calcBounderies( e );
         this.drag = false;
         this.html.parent.classList.remove( this.classes.scrolling );
         return null;
     }
     private handlerMouseMove( e: MouseEvent ): void {
-        this.calcBounderies( e );
-        if ( this.drag && this.inBound ) {
+        if ( this.drag ) {
             e.stopPropagation();
             e.preventDefault();
 
@@ -489,7 +485,6 @@ class CustomScrollbar {
     }
     private handlerMouseDown( e: MouseEvent ): void {
         if ( e.target === this.html.thumb ) {
-            this.calcBounderies( e );
             e.stopPropagation();
             e.preventDefault();
 
@@ -564,21 +559,7 @@ class CustomScrollbar {
         return this;
     }
 
-    private calcBounderies( e: MouseEvent ): void {
-        if ( this.drag ) {
-            let t: any;
-            t = ( ( ( t = document.documentElement ) || ( t = document.body.parentNode ) )
-                && typeof t.scrollTop === "number" ? t : document.body ).scrollTop;
-
-            let d: number = this.html.parent.offsetTop - t;
-            this.inBound = !(
-                d > e.clientY || d + this.scroll.parent.height < e.clientY
-            );
-        }
-        return null;
-    }
-
-    private clearProps( name: string ): Object {
+    private clearProps(name: string): Object {
         return this.cache[name] = Object.create( null );
     }
 
