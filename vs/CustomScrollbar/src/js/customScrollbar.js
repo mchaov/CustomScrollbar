@@ -16,7 +16,7 @@ var CustomScrollbar = (function () {
             window.addEventListener("test", null, opts);
         }
         catch (e) { }
-        this.passiveEvent = passiveEvent ? { capture: true, passive: true } : true;
+        this.passiveEvent = true; //passiveEvent ? { capture: true, passive: true } : true;
         var supportedWheelEvent = "onwheel" in HTMLDivElement.prototype ? "wheel" :
             document.onmousewheel !== undefined ? "mousewheel" : "DOMMouseScroll";
         this.classes = Object.create(null, {
@@ -308,7 +308,7 @@ var CustomScrollbar = (function () {
         var delta = this.cache.wheelDelta[d];
         if (this.enabled && (delta < 0 && !this.scroll.start || delta > 0 && !this.scroll.end)) {
             e.stopPropagation();
-            !this.passiveEvent && e.preventDefault();
+            e.preventDefault();
         }
         this.setScroll(delta, 2);
         return null;
@@ -322,7 +322,8 @@ var CustomScrollbar = (function () {
     CustomScrollbar.prototype.handlerMouseMove = function (e) {
         if (this.drag) {
             e.stopPropagation();
-            !this.passiveEvent && e.preventDefault();
+            e.preventDefault();
+            //!this.passiveEvent && e.preventDefault();
             var c = e.pageY || (e.clientY + document.body.scrollTop + document.documentElement.scrollTop);
             this.delta.current = (c - this.delta.initial);
             this.delta.initial = c;
@@ -335,7 +336,8 @@ var CustomScrollbar = (function () {
     CustomScrollbar.prototype.handlerMouseDown = function (e) {
         if (e.target === this.html.thumb) {
             e.stopPropagation();
-            !this.passiveEvent && e.preventDefault();
+            e.preventDefault();
+            //!this.passiveEvent && e.preventDefault();
             this.delta.initial = e.clientY;
             this.drag = true;
             this.html.parent.classList.add(this.classes.scrolling);

@@ -143,7 +143,7 @@ class CustomScrollbar {
             window.addEventListener("test", null, opts);
         } catch (e) { }
 
-        this.passiveEvent = passiveEvent ? { capture: true, passive: true } : true;
+        this.passiveEvent = true; //passiveEvent ? { capture: true, passive: true } : true;
 
         let supportedWheelEvent: string = "onwheel" in HTMLDivElement.prototype ? "wheel" :
             document.onmousewheel !== undefined ? "mousewheel" : "DOMMouseScroll";
@@ -462,7 +462,8 @@ class CustomScrollbar {
         let delta: number = this.cache.wheelDelta[d];
         if ( this.enabled && ( delta < 0 && !this.scroll.start || delta > 0 && !this.scroll.end ) ) {
             e.stopPropagation();
-            !this.passiveEvent && e.preventDefault();
+            e.preventDefault();
+            //!this.passiveEvent && e.preventDefault();
         }
         this.setScroll( delta, 2 );
         return null;
@@ -476,7 +477,8 @@ class CustomScrollbar {
     private handlerMouseMove( e: MouseEvent ): void {
         if ( this.drag ) {
             e.stopPropagation();
-            !this.passiveEvent && e.preventDefault();
+            e.preventDefault();
+            //!this.passiveEvent && e.preventDefault();
 
             let c: number = e.pageY || (e.clientY + document.body.scrollTop + document.documentElement.scrollTop);
 
@@ -498,7 +500,8 @@ class CustomScrollbar {
     private handlerMouseDown( e: MouseEvent ): void {
         if ( e.target === this.html.thumb ) {
             e.stopPropagation();
-            !this.passiveEvent && e.preventDefault();
+            e.preventDefault();
+            //!this.passiveEvent && e.preventDefault();
 
             this.delta.initial = e.clientY;
             this.drag = true;
